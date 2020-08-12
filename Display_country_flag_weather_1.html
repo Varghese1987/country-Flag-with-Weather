@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
     <link rel="stylesheet" href="./css/bootstrap.css" />
@@ -9,6 +10,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container text-center">
         <h1 class="heading">Countries and its Flag</h1>
@@ -22,7 +24,7 @@
         var div_row = document.createElement('div');
         div_row.setAttribute('class', 'row');
         div_cont.appendChild(div_row);
-        
+
         fetch("https://restcountries.eu/rest/v2/all")
             .then(function (resp) {
                 return resp.json();
@@ -43,22 +45,23 @@
                 }
                 div_row.innerHTML = `${data.map(template).join('')}`
 
-    });
+            });
 
-            function weather(lat,lng)
-                {
-                
-                // console.log(lat,lng)
-                fetch("https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng+"&appid=589dd1d6ecba941bfad8c3c3a76753d6")
-                .then(function (resp) {return resp.json();})
-                .then(function (wdata) { console.log(wdata);
-                var temp =  Math.round(wdata.main.temp - 273.15);
-                alert(temp+"°C")
+        function weather(lat, lng) {
+
+            // console.log(lat,lng)
+            fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&appid=589dd1d6ecba941bfad8c3c3a76753d6")
+                .then(function (resp) { return resp.json(); })
+                .then(function (wdata) {
+                    console.log(wdata);
+                    var temp = Math.round(wdata.main.temp - 273.15);
+                    alert(temp + "°C")
                 });
-                }   
-                
+        }
+
 
     </script>
 
 </body>
+
 </html>
