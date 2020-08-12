@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <style>
+        .flag {
+            max-height: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="heading">Countries and its Flag</h1>
+    </div>
+    <script>
+
+        var div_cont = document.createElement('div');
+        div_cont.setAttribute('class', 'container');
+        document.body.appendChild(div_cont);
+
+        var div_row = document.createElement('div');
+        div_row.setAttribute('class', 'row');
+        div_cont.appendChild(div_row);
+        
+        fetch("https://restcountries.eu/rest/v2/all")
+            .then(function (resp) {
+                return resp.json();
+            })
+            .then(function (data) {
+                console.log(data);
+
+                function template(country) {
+                    return `
+                    <div class = "col-lg-4 col-md-6 col-sm-12">
+                    <div class="card" style="width: 18rem; height:15rem; margin:1rem;">
+                    <h6>${country.name}</h6>
+                    <img class = "img-thumbnail flag" src = "${country.flag}" onclick = "weather('${country.latlng[0]}','${country.latlng[1]}')">
+                    <p class="card-text">Click on the flag image for weather </p>
+                    </div>
+                    </div>
+                    `
+                }
+                div_row.innerHTML = `${data.map(template).join('')}`
+
+    });
+
+            function weather(lat,lng)
+                {
+                
+                // console.log(lat,lng)
+                fetch("https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng+"&appid=589dd1d6ecba941bfad8c3c3a76753d6")
+                .then(function (resp) {return resp.json();})
+                .then(function (wdata) { console.log(wdata);
+                var temp =  Math.round(wdata.main.temp - 273.15);
+                alert(temp+"°C")
+                });
+                }   
+                
+
+    </script>
+
+</body>
+</html>
